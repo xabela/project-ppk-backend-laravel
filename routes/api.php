@@ -16,3 +16,21 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('user', 'UserController')->only(['store']);
+
+Route::post('login', 'UserController@login');
+
+Route::resource('beasiswa', 'BeasiswaController')->only(['index', 'show']);
+
+Route::group(['middleware' => ['user.IsLoggedIn']], function () {
+    Route::resource('user', 'UserController')->only(['index' , 'show', 'update']);
+
+});
+
+Route::group(['middleware' => ['user.IsAdmin']], function () {
+    Route::resource('user', 'UserController')->only(['index', 'show', 'destroy']);
+
+    Route::resource('beasiswa', 'BeasiswaController')->only(['store', 'update', 'destroy']);
+
+});

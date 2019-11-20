@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Beasiswa;
+use App\Http\Requests\BeasiswaRequest;
 use Illuminate\Http\Request;
 
 class BeasiswaController extends Controller
@@ -11,30 +13,36 @@ class BeasiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $beasiswa = Beasiswa::whereRaw('1 = 1');
+        
+        if ($request->nama_beasiswa) {
+            $beasiswa = $beasiswa->where('nama', 'LIKE', '%' . $request->nama_beasiswa . '%');
+        }
+        $beasiswa = $beasiswa->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($beasiswa);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\BeasiswaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BeasiswaRequest $request)
     {
-        //
+        $beasiswa = new Beasiswa();
+        $beasiswa->id = $request->id_beasiswa;
+        $beasiswa->nama = $request->nama_beasiswa;
+        $beasiswa->deksripsi = $request->deskripsi_beasiswa;
+        $beasiswa->kuota = $request->kuota_beasiswa;
+        $beasiswa->tanggal_mulai = $request->tanggal_mulai;
+        $beasiswa->tanggal_selesai = $request->tanggal_selesai;
+        $beasiswa->save();
+
+        return response()->json($beasiswa);
     }
 
     /**
@@ -45,30 +53,39 @@ class BeasiswaController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $beasiswa = Beasiswa::where('id', $id)->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        if ($beasiswa) {
+            return response()->json($beasiswa);
+        }
+        return abort(404, "Beasiswa tidak ditemukan");
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\BeasiswaRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BeasiswaRequest $request, $id)
     {
-        //
+        $beasiswa = Beasiswa::where('id', $id)->first();
+
+        if (!$beasiswa) {
+            return abort(404, "Beasiswa tidak ditemukan");
+        }
+
+        $beasiswa = new Beasiswa();
+        $beasiswa->id = $request->id_beasiswa;
+        $beasiswa->nama = $request->nama_beasiswa;
+        $beasiswa->deksripsi = $request->deskripsi_beasiswa;
+        $beasiswa->kuota = $request->kuota_beasiswa;
+        $beasiswa->tanggal_mulai = $request->tanggal_mulai;
+        $beasiswa->tanggal_selesai = $request->tanggal_selesai;
+        $beasiswa->save();
+
+        return response()->json($beasiswa);
     }
 
     /**
@@ -79,6 +96,12 @@ class BeasiswaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $beasiswa = Beasiswa::where('id', $id)->first();
+
+        if ($beasiswa) {
+            $beasiswa->delete();
+            return response()->json();
+        }
+        return abort(404, "Beasiswa tidak ditemukan");
     }
 }
