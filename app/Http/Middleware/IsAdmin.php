@@ -17,7 +17,8 @@ class IsAdmin
     {
         if ($request->loggedin_role === null) {
             return abort(401, 'Unauthorized');
-        } else if ($request->loggedin_role != 1) {
+        } else 
+        if ($request->loggedin_role != 1) {
             return abort(403, 'Forbidden');
         }
         

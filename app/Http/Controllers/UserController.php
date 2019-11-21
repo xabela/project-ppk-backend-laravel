@@ -15,9 +15,25 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = User::whereRaw('1 = 1');
+        
+        if ($request->nama) {
+            $user = $user->where('nama', 'LIKE', '%' . $request->nama . '%');
+        }
+        $user = $user->get();
+
+        return response()->json($user);
+
+        // if (request()->loggedin_role != 1 ) {
+        //     return abort(403, 'Forbidden');
+        // }
+        // $user = User::user()->get();
+        // if ($user) {
+        //     return response()->json($user);
+        // }
+        // return response()->json([], 404);
     }
 
     /**
@@ -45,8 +61,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($username)
-    {
-        if ($username != request()->loggedin_username) {
+    { 
+        // error_log(request()->loggedin_role);
+        if ($username != request()->loggedin_username && request()->loggedin_role != 1 ) {
             return abort(403, 'Forbidden');
         }
         $user = User::with(['pendaftaran'])->where('username', $username)->first();
@@ -71,8 +88,8 @@ class UserController extends Controller
             return abort(403, 'Forbidden');
         }
         $user = User::where('username', $username)->first();
-        if ($request->name != null) {
-            $user->name = $request->name;
+        if ($request->nama != null) {
+            $user->nama = $request->nama;
         }
         if ($request->password != null) {
             $user->password = Hash::make($request->password);

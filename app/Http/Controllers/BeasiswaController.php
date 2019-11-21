@@ -23,6 +23,7 @@ class BeasiswaController extends Controller
         $beasiswa = $beasiswa->get();
 
         return response()->json($beasiswa);
+        
     }
 
     /**

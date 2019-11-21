@@ -23,13 +23,13 @@ Route::post('login', 'UserController@login');
 
 Route::resource('beasiswa', 'BeasiswaController')->only(['index', 'show']);
 
-Route::group(['middleware' => ['user.IsLoggedIn']], function () {
-    Route::resource('user', 'UserController')->only(['index' , 'show', 'update']);
+Route::group(['middleware' => ['user.isloggedin']], function () {
+    Route::resource('user', 'UserController')->only(['show', 'update']);
 
 });
 
-Route::group(['middleware' => ['user.IsAdmin']], function () {
-    Route::resource('user', 'UserController')->only(['index', 'show', 'destroy']);
+Route::group(['middleware' => ['user.isadmin']], function () {
+    Route::resource('user', 'UserController')->only(['index']);
 
     Route::resource('beasiswa', 'BeasiswaController')->only(['store', 'update', 'destroy']);
 

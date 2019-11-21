@@ -1,3 +1,22 @@
+## List of Features
+- [x] Register User
+- [x] Login User
+- [x] Show User Detail by User or Admin
+- [ ] Show All Users by  Admin
+- [x] Update User by User
+- [ ] Add Beasiswa by Admin
+- [ ] Update Beasiswa by Admin
+- [ ] Delete Beasiswa by Admin
+- [ ] Show List of Beasiswa
+- [ ] Show Beasiswa Detail
+- [ ] Add Pendaftaran by User
+- [ ] Show List of Pendaftar Beasiswa by User
+<!-- - [ ] Update Peminjaman by Admin
+- [ ] Delete Peminjaman by Admin
+- [ ] Add Review by User
+- [ ] Edit Review by User
+- [ ] Delete Review by User -->
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
