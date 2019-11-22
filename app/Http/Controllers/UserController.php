@@ -25,15 +25,6 @@ class UserController extends Controller
         $user = $user->get();
 
         return response()->json($user);
-
-        // if (request()->loggedin_role != 1 ) {
-        //     return abort(403, 'Forbidden');
-        // }
-        // $user = User::user()->get();
-        // if ($user) {
-        //     return response()->json($user);
-        // }
-        // return response()->json([], 404);
     }
 
     /**

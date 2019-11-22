@@ -2,13 +2,13 @@
 - [x] Register User
 - [x] Login User
 - [x] Show User Detail by User or Admin
-- [ ] Show All Users by  Admin
+- [x] Show All Users by  Admin
 - [x] Update User by User
-- [ ] Add Beasiswa by Admin
-- [ ] Update Beasiswa by Admin
-- [ ] Delete Beasiswa by Admin
-- [ ] Show List of Beasiswa
-- [ ] Show Beasiswa Detail
+- [x] Add Beasiswa by Admin
+- [x] Update Beasiswa by Admin
+- [x] Delete Beasiswa by Admin
+- [x] Show List of Beasiswa by All
+- [x] Show Beasiswa Detail by All
 - [ ] Add Pendaftaran by User
 - [ ] Show List of Pendaftar Beasiswa by User
 <!-- - [ ] Update Peminjaman by Admin

@@ -24,9 +24,7 @@ class IsLoggedIn
 
             return $next($request);
         } catch (\Exception $e) {
-            return response()->json([
-                "message" => "Unauthorized",
-            ], 401);
+            return abort(401, 'Unauthorized');
         }
     }
 }

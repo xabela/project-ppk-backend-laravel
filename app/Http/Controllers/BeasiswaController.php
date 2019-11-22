@@ -35,9 +35,8 @@ class BeasiswaController extends Controller
     public function store(BeasiswaRequest $request)
     {
         $beasiswa = new Beasiswa();
-        $beasiswa->id = $request->id_beasiswa;
         $beasiswa->nama = $request->nama_beasiswa;
-        $beasiswa->deksripsi = $request->deskripsi_beasiswa;
+        $beasiswa->deskripsi = $request->deskripsi_beasiswa;
         $beasiswa->kuota = $request->kuota_beasiswa;
         $beasiswa->tanggal_mulai = $request->tanggal_mulai;
         $beasiswa->tanggal_selesai = $request->tanggal_selesai;
@@ -77,10 +76,8 @@ class BeasiswaController extends Controller
             return abort(404, "Beasiswa tidak ditemukan");
         }
 
-        $beasiswa = new Beasiswa();
-        $beasiswa->id = $request->id_beasiswa;
         $beasiswa->nama = $request->nama_beasiswa;
-        $beasiswa->deksripsi = $request->deskripsi_beasiswa;
+        $beasiswa->deskripsi = $request->deskripsi_beasiswa;
         $beasiswa->kuota = $request->kuota_beasiswa;
         $beasiswa->tanggal_mulai = $request->tanggal_mulai;
         $beasiswa->tanggal_selesai = $request->tanggal_selesai;

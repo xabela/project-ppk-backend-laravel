@@ -25,10 +25,10 @@ class BeasiswaRequest extends FormRequest
     {
         return [
             'nama_beasiswa' => 'required|string|min:3|max:100',
-            'deksripsi_beasiswa' => 'required|string|min:1|max:500',
-            'kuota_beasiswa' => 'required|int',
-            'tanggal_mulai' => 'required|date|after_or_equal:today', // after beeel, lul :v, after or equal wingi yoopo?
-            'tanggal_selesai' => 'required|date|after:tanggal_mulai', // iki after tomorrow ngono a kan kependeken
+            'deskripsi_beasiswa' => 'required|string|min:1|max:500',
+            'kuota_beasiswa' => 'required|int|min:1|max:1000',
+            'tanggal_mulai' => 'required|date|after_or_equal:today',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
         ];
     }
 }

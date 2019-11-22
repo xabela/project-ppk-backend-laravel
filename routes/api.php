@@ -26,11 +26,9 @@ Route::resource('beasiswa', 'BeasiswaController')->only(['index', 'show']);
 Route::group(['middleware' => ['user.isloggedin']], function () {
     Route::resource('user', 'UserController')->only(['show', 'update']);
 
-});
-
-Route::group(['middleware' => ['user.isadmin']], function () {
-    Route::resource('user', 'UserController')->only(['index']);
-
-    Route::resource('beasiswa', 'BeasiswaController')->only(['store', 'update', 'destroy']);
-
+    Route::group(['middleware' => ['user.isadmin']], function () {
+        Route::resource('user', 'UserController')->only(['index']);
+    
+        Route::resource('beasiswa', 'BeasiswaController')->only(['store', 'update', 'destroy']);
+    });
 });
