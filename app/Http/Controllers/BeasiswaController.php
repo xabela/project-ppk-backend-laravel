@@ -16,14 +16,13 @@ class BeasiswaController extends Controller
     public function index(Request $request)
     {
         $beasiswa = Beasiswa::whereRaw('1 = 1');
-        
+
         if ($request->nama_beasiswa) {
             $beasiswa = $beasiswa->where('nama', 'LIKE', '%' . $request->nama_beasiswa . '%');
         }
         $beasiswa = $beasiswa->get();
 
         return response()->json($beasiswa);
-        
     }
 
     /**
@@ -40,6 +39,7 @@ class BeasiswaController extends Controller
         $beasiswa->kuota = $request->kuota_beasiswa;
         $beasiswa->tanggal_mulai = $request->tanggal_mulai;
         $beasiswa->tanggal_selesai = $request->tanggal_selesai;
+        $beasiswa->penyelenggara = request()->loggedin_username;
         $beasiswa->save();
 
         return response()->json($beasiswa);
@@ -55,10 +55,15 @@ class BeasiswaController extends Controller
     {
         $beasiswa = Beasiswa::where('id', $id)->first();
 
-        if ($beasiswa) {
-            return response()->json($beasiswa);
+        if (!$beasiswa) {
+            return abort(404, "Beasiswa tidak ditemukan");
         }
-        return abort(404, "Beasiswa tidak ditemukan");
+
+        if (request()->loggedin_role === 1 && $beasiswa->penyelenggara === request()->loggedin_username) {
+            $beasiswa = $beasiswa->makeVisible('pendaftaran')->toArray();
+        }
+
+        return response()->json($beasiswa);
     }
 
     /**
@@ -74,6 +79,9 @@ class BeasiswaController extends Controller
 
         if (!$beasiswa) {
             return abort(404, "Beasiswa tidak ditemukan");
+        }
+        if (request()->loggedin_username != $beasiswa->penyelenggara) {
+            return abort(403, "Akses tidak diizinkan");
         }
 
         $beasiswa->nama = $request->nama_beasiswa;
@@ -97,6 +105,10 @@ class BeasiswaController extends Controller
         $beasiswa = Beasiswa::where('id', $id)->first();
 
         if ($beasiswa) {
+            if (request()->loggedin_username != $beasiswa->penyelenggara) {
+                return abort(403, "Akses tidak diizinkan");
+            }
+
             $beasiswa->delete();
             return response()->json();
         }

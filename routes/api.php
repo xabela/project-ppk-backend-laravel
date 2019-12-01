@@ -24,11 +24,16 @@ Route::post('login', 'UserController@login');
 Route::resource('beasiswa', 'BeasiswaController')->only(['index', 'show']);
 
 Route::group(['middleware' => ['user.isloggedin']], function () {
-    Route::resource('user', 'UserController')->only(['show', 'update']);
+    Route::resource('user', 'UserController')->only(['index', 'show', 'update']);
+    Route::resource('pendaftaran', 'PendaftaranController')->only(['show', 'destroy']);
+
+    Route::group(['prefix' => 'beasiswa/{id_beasiswa}'], function () {
+        Route::resource('pendaftaran', 'PendaftaranController')->only(['store']);
+    });
 
     Route::group(['middleware' => ['user.isadmin']], function () {
         Route::resource('user', 'UserController')->only(['index']);
-    
+
         Route::resource('beasiswa', 'BeasiswaController')->only(['store', 'update', 'destroy']);
     });
 });

@@ -53,7 +53,6 @@ class UserController extends Controller
      */
     public function show($username)
     { 
-        // error_log(request()->loggedin_role);
         if ($username != request()->loggedin_username && request()->loggedin_role != 1 ) {
             return abort(403, 'Forbidden');
         }

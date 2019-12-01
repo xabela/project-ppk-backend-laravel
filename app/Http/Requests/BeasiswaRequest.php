@@ -13,7 +13,7 @@ class BeasiswaRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return request()->loggedin_role === 1;
     }
 
     /**

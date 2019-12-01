@@ -12,6 +12,7 @@
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "firebase/php-jwt": "^5.0",
+        "kreait/laravel-firebase": "^1.2",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^1.0",
         "ramsey/uuid": "^3.8"

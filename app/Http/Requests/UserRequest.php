@@ -31,9 +31,8 @@ class UserRequest extends FormRequest
                 'email' => 'required|string|email|unique:user',
                 'nama' => 'required|string|min:3|max:120',
                 'role' => 'required|in:0,1',
-
             ];
-        } else if ($method == 'PUT') {
+        } else if ($method == 'PUT' || $method == 'PATCH') {
             return [
                 'password' => 'sometimes|required|string|min:4|max:20',
                 'nama' => 'sometimes|required|string|min:3|max:120',

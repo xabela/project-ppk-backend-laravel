@@ -13,7 +13,7 @@ class User extends Authenticatable
 
     protected $primaryKey = 'username';
     public $incrementing = false;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -44,5 +44,10 @@ class User extends Authenticatable
     public function pendaftaran()
     {
         return $this->hasMany('App\Pendaftaran', 'username', 'username');
+    }
+
+    public function beasiswa_terdaftar()
+    {
+        return $this->hasMany('App\Beasiswa', 'penyelenggara', 'username');
     }
 }
