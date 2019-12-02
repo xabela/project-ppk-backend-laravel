@@ -22,8 +22,6 @@ class CreatePendaftaransTable extends Migration
             $table->string('alamat', 100);
             $table->string('nomor_telepon', 20);
             $table->float('ipk');
-            $table->string('transkip_nilai');
-            $table->string('pas_foto');
             $table->unsignedTinyInteger('verifikasi')->default(0);
             $table->timestamps();
         });

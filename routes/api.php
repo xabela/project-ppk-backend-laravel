@@ -17,6 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('hello-world', function() {
+    return response()->json("Hello world!");
+});
+
 Route::resource('user', 'UserController')->only(['store']);
 
 Route::post('login', 'UserController@login');
@@ -25,7 +29,7 @@ Route::resource('beasiswa', 'BeasiswaController')->only(['index', 'show']);
 
 Route::group(['middleware' => ['user.isloggedin']], function () {
     Route::resource('user', 'UserController')->only(['index', 'show', 'update']);
-    Route::resource('pendaftaran', 'PendaftaranController')->only(['show', 'destroy']);
+    Route::resource('pendaftaran', 'PendaftaranController')->only(['index', 'show', 'destroy']);
 
     Route::group(['prefix' => 'beasiswa/{id_beasiswa}'], function () {
         Route::resource('pendaftaran', 'PendaftaranController')->only(['store']);
@@ -35,5 +39,6 @@ Route::group(['middleware' => ['user.isloggedin']], function () {
         Route::resource('user', 'UserController')->only(['index']);
 
         Route::resource('beasiswa', 'BeasiswaController')->only(['store', 'update', 'destroy']);
+        Route::get('beasiswa/{id_beasiswa}/detail', 'BeasiswaController@show');
     });
 });

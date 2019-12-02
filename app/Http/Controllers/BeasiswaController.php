@@ -20,7 +20,7 @@ class BeasiswaController extends Controller
         if ($request->nama_beasiswa) {
             $beasiswa = $beasiswa->where('nama', 'LIKE', '%' . $request->nama_beasiswa . '%');
         }
-        $beasiswa = $beasiswa->get();
+        $beasiswa = $beasiswa->orderBy('created_at', 'DESC')->take(100)->get();
 
         return response()->json($beasiswa);
     }
@@ -60,7 +60,7 @@ class BeasiswaController extends Controller
         }
 
         if (request()->loggedin_role === 1 && $beasiswa->penyelenggara === request()->loggedin_username) {
-            $beasiswa = $beasiswa->makeVisible('pendaftaran')->toArray();
+            $beasiswa = $beasiswa->makeVisible('pendaftaran');
         }
 
         return response()->json($beasiswa);

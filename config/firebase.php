@@ -31,7 +31,7 @@ return [
      *
      */
     'credentials' => [
-        'file' => env('FIREBASE_CREDENTIALS'),
+        'file' => env('FIREBASE_CREDENTIALS', __DIR__ . '/sa-firebase.json'),
 
         /**
          * If you want to prevent the auto discovery of credentials, set the

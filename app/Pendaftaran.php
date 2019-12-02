@@ -4,7 +4,8 @@ namespace App;
 
 use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
-use Kreait\Firebase\Factory;
+use Kreait\Firebase;
+use Illuminate\Support\Facades\App;
 
 class Pendaftaran extends Model
 {
@@ -12,6 +13,7 @@ class Pendaftaran extends Model
     protected $table = 'pendaftarans';
     public $incrementing = false;
     protected $appends = ['pas_foto', 'transkrip_nilai'];
+    public $with = ['pendaftar'];
 
     public function beasiswa()
     {
@@ -25,7 +27,8 @@ class Pendaftaran extends Model
 
     public function getPasFotoAttribute()
     {
-        $storage = (new Factory())->createStorage();
+        $factory = App::make(Firebase\Factory::class);
+        $storage = $factory->createStorage();
         $bucket = $storage->getBucket();
         $pas_foto_pendaftar_file_name = 'pas_foto/pas_foto_' . $this->id . '.png';
         $pas_foto_pendaftar = $bucket->object($pas_foto_pendaftar_file_name);
@@ -37,7 +40,8 @@ class Pendaftaran extends Model
 
     public function getTranskripNilaiAttribute()
     {
-        $storage = (new Factory())->createStorage();
+        $factory = App::make(Firebase\Factory::class);
+        $storage = $factory->createStorage();
         $bucket = $storage->getBucket();
         $transkrip_nilai_pendaftar_file_name = 'transkrip_nilai/transkrip_nilai_' . $this->id . '.png';
         $transkrip_nilai_pendaftar = $bucket->object($transkrip_nilai_pendaftar_file_name);

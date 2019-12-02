@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Beasiswa;
 use App\Http\Requests\PendaftaranRequest;
 use App\Pendaftaran;
-use Kreait\Firebase\Factory;
+use Illuminate\Http\Request;
+use Kreait\Firebase;
 
 class PendaftaranController extends Controller
 {
@@ -16,11 +17,11 @@ class PendaftaranController extends Controller
      */
     public function index(Request $request)
     {
-        if (request()->loggedin_role === 1) {
+        if ($request->loggedin_role === 1) {
             return response()->json();
         }
 
-        $pendaftarans = Pendaftaran::where('username', request()->loggedin_username)->get();
+        $pendaftarans = Pendaftaran::where('username', $request->loggedin_username)->orderBy('created_at')->get();
         return response()->json($pendaftarans);
     }
 
@@ -49,7 +50,8 @@ class PendaftaranController extends Controller
         try {
             $pendaftaran = new Pendaftaran();
 
-            $storage = (new Factory())->createStorage();
+            $factory = App::make(Firebase\Factory::class);
+            $storage = $factory->createStorage();
             $bucket = $storage->getBucket();
             $pas_foto_pendaftar = $request->file('pas_foto_pendaftar');
             $pas_foto_pendaftar_file_name = 'pas_foto/pas_foto_' . $pendaftaran->id . '.png';
@@ -119,7 +121,8 @@ class PendaftaranController extends Controller
             return abort(403, "Akses tidak diizinkan");
         }
 
-        $storage = (new Factory())->createStorage();
+        $factory = App::make(Firebase\Factory::class);
+        $storage = $factory->createStorage();
         $bucket = $storage->getBucket();
         $pas_foto_pendaftar = $bucket->object("pas_foto/pas_foto_{$pendaftaran->id}.png");
         if ($pas_foto_pendaftar->exists()) {

@@ -111,8 +111,8 @@ class UserController extends Controller
                     "token" => $this->jwtGenerator($request->username, $user->role),
                 ]);
             }
-            return abort(401, "Wrong password");
+            return abort(401, "Password salah");
         }
-        return abort(404, "User not found");
+        return abort(404, "Pengguna tidak ditemukan");
     }
 }

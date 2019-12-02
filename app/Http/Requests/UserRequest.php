@@ -26,7 +26,7 @@ class UserRequest extends FormRequest
         $method = strtoupper(request()->method());
         if ($method == 'POST') {
             return [
-                'username' => 'required|string|min:3|max:30',
+                'username' => 'required|string|min:3|max:30|unique:user',
                 'password' => 'required|string|min:4|max:20',
                 'email' => 'required|string|email|unique:user',
                 'nama' => 'required|string|min:3|max:120',
