@@ -21,7 +21,7 @@ class PendaftaranController extends Controller
             return response()->json();
         }
 
-        $pendaftarans = Pendaftaran::where('username', $request->loggedin_username)->orderBy('created_at')->get();
+        $pendaftarans = Pendaftaran::where('username', $request->loggedin_username)->with('beasiswa')->orderBy('created_at')->get();
         return response()->json($pendaftarans);
     }
 
@@ -100,6 +100,19 @@ class PendaftaranController extends Controller
         if (request()->loggedin_role != 1 && request()->loggedin_username != $pendaftaran->username) {
             return abort(403, "Akses tidak diizinkan");
         }
+
+        return response()->json($pendaftaran);
+    }
+
+    public function update(PendaftaranRequest $request, $id)
+    {
+        $pendaftaran = Pendaftaran::where('id', $id)->first();
+
+        if (!$pendaftaran) {
+            return abort(404, 'Data tidak ditemukan');
+        }
+        $pendaftaran->verifikasi = $request->verifikasi_pendaftar;
+        $pendaftaran->save();
 
         return response()->json($pendaftaran);
     }

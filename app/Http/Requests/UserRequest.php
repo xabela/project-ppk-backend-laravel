@@ -34,6 +34,7 @@ class UserRequest extends FormRequest
             ];
         } else if ($method == 'PUT' || $method == 'PATCH') {
             return [
+                'old_password' => 'required_with:password|string|min:4|max:20',
                 'password' => 'sometimes|required|string|min:4|max:20',
                 'nama' => 'sometimes|required|string|min:3|max:120',
             ];

@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $user = User::whereRaw('1 = 1');
-        
+
         if ($request->nama) {
             $user = $user->where('nama', 'LIKE', '%' . $request->nama . '%');
         }
@@ -52,8 +52,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($username)
-    { 
-        if ($username != request()->loggedin_username && request()->loggedin_role != 1 ) {
+    {
+        if ($username != request()->loggedin_username && request()->loggedin_role != 1) {
             return abort(403, 'Forbidden');
         }
         $user = User::with(['pendaftaran'])->where('username', $username)->first();
@@ -74,6 +74,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, $username)
     {
+        error_log('masuk update');
         if ($username != request()->loggedin_username) {
             return abort(403, 'Forbidden');
         }
@@ -82,7 +83,12 @@ class UserController extends Controller
             $user->nama = $request->nama;
         }
         if ($request->password != null) {
-            $user->password = Hash::make($request->password);
+            error_log('masuk password');
+            if (Hash::check($request->old_password, $user->password)) {
+                $user->password = Hash::make($request->password);
+            } else {
+                return abort(403, 'Password lama salah');
+            }
         }
         $user->save();
 

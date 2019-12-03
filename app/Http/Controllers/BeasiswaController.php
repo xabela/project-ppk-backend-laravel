@@ -20,6 +20,10 @@ class BeasiswaController extends Controller
         if ($request->nama_beasiswa) {
             $beasiswa = $beasiswa->where('nama', 'LIKE', '%' . $request->nama_beasiswa . '%');
         }
+        if ($request->penyelenggara) {
+            $beasiswa = $beasiswa->where('penyelenggara', $request->penyelenggara);
+        }
+
         $beasiswa = $beasiswa->orderBy('created_at', 'DESC')->take(100)->get();
 
         return response()->json($beasiswa);

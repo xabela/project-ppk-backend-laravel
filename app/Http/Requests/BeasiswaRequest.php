@@ -23,12 +23,23 @@ class BeasiswaRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'nama_beasiswa' => 'required|string|min:3|max:100',
-            'deskripsi_beasiswa' => 'required|string|min:1|max:500',
-            'kuota_beasiswa' => 'required|int|min:1|max:1000',
-            'tanggal_mulai' => 'required|date|after_or_equal:today',
-            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
-        ];
+        $method = strtoupper(request()->method());
+        if ($method === 'POST') {
+            return [
+                'nama_beasiswa' => 'required|string|min:3|max:100',
+                'deskripsi_beasiswa' => 'required|string|min:1|max:10000',
+                'kuota_beasiswa' => 'required|int|min:1|max:1000',
+                'tanggal_mulai' => 'required|date|after_or_equal:today',
+                'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+            ];
+        } else {
+            return [
+                'nama_beasiswa' => 'required|string|min:3|max:100',
+                'deskripsi_beasiswa' => 'required|string|min:1|max:10000',
+                'kuota_beasiswa' => 'required|int|min:1|max:1000',
+                'tanggal_mulai' => 'required|date',
+                'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+            ];
+        }
     }
 }

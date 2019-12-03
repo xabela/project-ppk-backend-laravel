@@ -40,5 +40,6 @@ Route::group(['middleware' => ['user.isloggedin']], function () {
 
         Route::resource('beasiswa', 'BeasiswaController')->only(['store', 'update', 'destroy']);
         Route::get('beasiswa/{id_beasiswa}/detail', 'BeasiswaController@show');
+        Route::resource('pendaftaran', 'PendaftaranController')->only(['update']);
     });
 });

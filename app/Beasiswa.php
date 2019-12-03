@@ -43,6 +43,6 @@ class Beasiswa extends Model
         if ($pas_foto_pendaftar->exists()) {
             return $pas_foto_pendaftar->signedUrl(new \DateTime('tomorrow'));
         }
-        return "https://dummyimage.com/400x400/000/fff&text={$this->username}";
+        return "https://dummyimage.com/400x400/000/fff&text={$this->nama}";
     }
 }

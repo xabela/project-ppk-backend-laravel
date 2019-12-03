@@ -9,13 +9,8 @@
 - [x] Delete Beasiswa by Admin
 - [x] Show List of Beasiswa by All
 - [x] Show Beasiswa Detail by All
-- [ ] Add Pendaftaran by User
-- [ ] Show List of Pendaftar Beasiswa by User
-<!-- - [ ] Update Peminjaman by Admin
-- [ ] Delete Peminjaman by Admin
-- [ ] Add Review by User
-- [ ] Edit Review by User
-- [ ] Delete Review by User -->
+- [x] Add Pendaftaran by User
+- [x] Show List of Pendaftar Beasiswa by User
 
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
