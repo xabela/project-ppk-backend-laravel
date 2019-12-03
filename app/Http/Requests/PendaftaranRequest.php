@@ -27,7 +27,7 @@ class PendaftaranRequest extends FormRequest
         $method = strtoupper(request()->method());
         if ($method === 'PATCH') {
             return [
-                'verifikasi_pendaftar' => 'required|in:0,1',
+                'verifikasi_pendaftar' => 'required|in:0,1,2',
             ];
         } else {
             return [
