@@ -6,6 +6,7 @@ use App\Beasiswa;
 use App\Http\Requests\PendaftaranRequest;
 use App\Pendaftaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Kreait\Firebase;
 
 class PendaftaranController extends Controller
@@ -54,15 +55,19 @@ class PendaftaranController extends Controller
             $storage = $factory->createStorage();
             $bucket = $storage->getBucket();
             $pas_foto_pendaftar = $request->file('pas_foto_pendaftar');
-            $pas_foto_pendaftar_file_name = 'pas_foto/pas_foto_' . $pendaftaran->id . '.png';
-            $bucket->upload(file_get_contents($pas_foto_pendaftar), [
-                'name' => $pas_foto_pendaftar_file_name,
-            ]);
+            if ($pas_foto_pendaftar) {
+                $pas_foto_pendaftar_file_name = 'pas_foto/pas_foto_' . $pendaftaran->id . '.png';
+                $bucket->upload(file_get_contents($pas_foto_pendaftar), [
+                    'name' => $pas_foto_pendaftar_file_name,
+                ]);
+            }
             $transkrip_nilai_pendaftar = $request->file('transkrip_nilai_pendaftar');
-            $transkrip_nilai_pendaftar_file_name = 'transkrip_nilai/transkrip_nilai_' . $pendaftaran->id . '.png';
-            $bucket->upload(file_get_contents($transkrip_nilai_pendaftar), [
-                'name' => $transkrip_nilai_pendaftar_file_name,
-            ]);
+            if ($transkrip_nilai_pendaftar) {
+                $transkrip_nilai_pendaftar_file_name = 'transkrip_nilai/transkrip_nilai_' . $pendaftaran->id . '.png';
+                $bucket->upload(file_get_contents($transkrip_nilai_pendaftar), [
+                    'name' => $transkrip_nilai_pendaftar_file_name,
+                ]);
+            }
 
             $pendaftaran->username = request()->loggedin_username;
             $pendaftaran->id_beasiswa = $id_beasiswa;
